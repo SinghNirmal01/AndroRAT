@@ -9,12 +9,15 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        node-version: '20'  # Ensure Node.js 20 is used
 
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin' # Use 'adopt' for AdoptOpenJDK
+        distribution: 'temurin'
         java-version: '11'
+        node-version: '20'  # Ensure Node.js 20 is used
 
     - name: Install SDK
       run: |
